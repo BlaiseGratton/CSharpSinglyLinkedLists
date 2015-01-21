@@ -42,10 +42,18 @@ namespace SinglyLinkedLists
             if (firstNode == null)
             {
                 firstNode = new SinglyLinkedListNode(value);
+                return;
             }
-            else
+
+            SinglyLinkedListNode node = this.firstNode;
+            while (true)
             {
-                firstNode.Next = new SinglyLinkedListNode(value);
+                if (node.Next == null)
+                {
+                    node.Next = new SinglyLinkedListNode(value);
+                    break;
+                }
+                node = node.Next;
             }
         }
 
@@ -57,7 +65,16 @@ namespace SinglyLinkedLists
 
         public string ElementAt(int index)
         {
-            throw new NotImplementedException();
+            SinglyLinkedListNode node = firstNode;
+            if (node == null)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            for (; index > 0; index--)
+            {
+                node = node.Next;
+            }
+            return node.ToString();
         }
 
         public string First()
@@ -87,7 +104,22 @@ namespace SinglyLinkedLists
         // HINT 3: If you highlight code and right click, you can use the refactor menu to extract a method for you...
         public string Last()
         {
-            throw new NotImplementedException();
+            if (this.firstNode == null)
+            {
+                return null;
+            }
+            int counter = 0;
+            SinglyLinkedListNode node = firstNode;
+            while (true)
+            {
+                if (node.Next == null)
+                {
+                    break;
+                }
+                node = node.Next;
+                counter++;
+            }
+            return this.ElementAt(counter);
         }
 
         public void Remove(string value)
