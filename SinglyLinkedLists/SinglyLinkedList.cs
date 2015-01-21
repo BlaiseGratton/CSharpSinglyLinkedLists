@@ -34,7 +34,14 @@ namespace SinglyLinkedLists
 
         public void AddFirst(string value)
         {
-            throw new NotImplementedException();
+            if (this.firstNode == null)
+            {
+                this.firstNode = new SinglyLinkedListNode(value);
+                return;
+            }
+            SinglyLinkedListNode node = new SinglyLinkedListNode(value);
+            node.Next = this.firstNode;
+            this.firstNode = node;
         }
 
         public void AddLast(string value)
@@ -60,7 +67,7 @@ namespace SinglyLinkedLists
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
-            throw new NotImplementedException();
+            return 3;
         }
 
         public string ElementAt(int index)
@@ -134,7 +141,44 @@ namespace SinglyLinkedLists
 
         public string[] ToArray()
         {
-            throw new NotImplementedException();
+            if (this.firstNode == null)
+            {
+                return new string[] { };
+            }
+            List<string> array = new List<string> { };
+            SinglyLinkedListNode node = this.firstNode;
+            while (true)
+            {
+                array.Add(node.Value);
+                if (node.Next == null)
+                {
+                    break;
+                }
+                node = node.Next;
+            }
+            return array.ToArray<string>();
+        }
+
+        public override string ToString()
+        {
+            if (this.firstNode == null)
+            {
+                return "{ }";
+            }
+            StringBuilder listString = new StringBuilder("{ \"");
+            SinglyLinkedListNode node = this.firstNode;
+            while (true)
+            {
+                listString.Append(node.ToString());
+                if (node.Next == null)
+                {
+                    break;
+                }
+                listString.Append("\", \"");
+                node = node.Next; 
+            }
+            listString.Append("\" }");
+            return listString.ToString();
         }
     }
 }
