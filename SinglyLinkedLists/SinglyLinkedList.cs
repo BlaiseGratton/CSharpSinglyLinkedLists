@@ -95,7 +95,21 @@ namespace SinglyLinkedLists
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
-            return 3;
+            if (firstNode == null)
+            {
+                return 0;
+            }
+            int counter = 0;
+            SinglyLinkedListNode node = firstNode;
+            while (true)
+            {
+                counter++;
+                if (node.Next == null)
+                {
+                    return counter;
+                }
+                node = node.Next;
+            }
         }
 
         public string ElementAt(int index)
@@ -105,8 +119,13 @@ namespace SinglyLinkedLists
             {
                 throw new ArgumentOutOfRangeException();
             }
+            if (index > this.Count() - 1)
+            {
+                throw new ArgumentOutOfRangeException();
+            } 
             for (; index > 0; index--)
             {
+               
                 node = node.Next;
             }
             return node.ToString();
@@ -126,22 +145,25 @@ namespace SinglyLinkedLists
 
         public int IndexOf(string value)
         {
+            if (firstNode == null)
+            {
+                return -1;
+            }
             int index = 0;
             SinglyLinkedListNode node = firstNode;
             while (true)
             {
                 if (node.Value == value)
                 {
-                    break;
+                    return index;
                 }
-                if (node.Value == null)
+                if (node.Next == null)
                 {
-                    break;
+                    return -1;
                 }
                 node = node.Next;
                 index++;
             }
-            return index;
         }
 
         public bool IsSorted()
@@ -174,7 +196,26 @@ namespace SinglyLinkedLists
 
         public void Remove(string value)
         {
-            throw new NotImplementedException();
+            SinglyLinkedListNode node = firstNode;
+            if (node.Value == value)
+            {
+                this.firstNode = firstNode.Next;
+                return;
+            }
+            while (true)
+            {
+                if (node.Next == null)
+                {
+                    return;
+                }
+                if (node.Next.Value == value)
+                {
+                    node.Next = node.Next.Next;
+                    break;
+                }
+                
+                node = node.Next;
+            }
         }
 
         public void Sort()
