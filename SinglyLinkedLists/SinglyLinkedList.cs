@@ -168,7 +168,23 @@ namespace SinglyLinkedLists
 
         public bool IsSorted()
         {
-            return true;
+            if (firstNode == null)
+            {
+                return true;
+            }
+            SinglyLinkedListNode node = firstNode;
+            while (true)
+            {
+                if (node.Next == null)
+                {
+                    return true;
+                } 
+                if (node.Next < node)
+                {
+                    return false;
+                }
+                node = node.Next;
+            }
         }
 
         // HINT 1: You can extract this functionality (finding the last item in the list) from a method you've already written!
@@ -227,21 +243,31 @@ namespace SinglyLinkedLists
             }
             while (true)
             {
-                if (node.Next == null)
+                if (node.Next == null || node.Next.Next == null)
                 {
                     break;
                 }
-                if(node.Next < node.Next)
+                if(firstNode.Next < firstNode)
                 {
-                    SinglyLinkedListNode newNode1 = new SinglyLinkedListNode(node.Next.Value);
-                    SinglyLinkedListNode newNode2 = new SinglyLinkedListNode(node.Next.Next.Value);
-                    newNode2.Next = node.Next.Next.Next;
-                    node.Next = newNode1;
-                    newNode1.Next = newNode2;
+                    SinglyLinkedListNode newNode = new SinglyLinkedListNode(firstNode.Value);
+                    newNode.Next = firstNode.Next.Next;
+                    firstNode = firstNode.Next;
+                    firstNode.Next = newNode;
+                    node = firstNode;
                 }
-                if (node.Next > node)
+                if (node.Next.Next < node.Next)
                 {
-                    node = node.Next;
+                    SinglyLinkedListNode node1 = new SinglyLinkedListNode(node.Next.Value);
+                    SinglyLinkedListNode node2 = new SinglyLinkedListNode(node.Next.Next.Value);
+                    node2.Next = node1;
+                    node1.Next = node.Next.Next.Next;
+                    node.Next = node2;
+                    node = firstNode;
+                }
+                node = node.Next;
+                if (node.Next < node)
+                {
+                    node = firstNode;
                 }
             }
         }
