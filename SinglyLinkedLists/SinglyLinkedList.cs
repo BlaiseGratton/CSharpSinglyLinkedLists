@@ -17,19 +17,47 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
         public SinglyLinkedList(params object[] values)
         {
-            throw new NotImplementedException();
+            foreach (object item in values)
+            {
+                 AddLast(item.ToString());
+            }
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
         public string this[int i]
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return ElementAt(i); }
+            set {
+                    SinglyLinkedListNode node = firstNode;
+                    for (int index = i; index > 1; index--)
+                    {
+                        node = node.Next;
+                    }
+                    var temp = node.Next.Next;
+                    SinglyLinkedListNode newNode = new SinglyLinkedListNode(value);
+                    newNode.Next = temp;
+                    node.Next = newNode;
+                }
         }
 
         public void AddAfter(string existingValue, string value)
         {
-            throw new NotImplementedException();
+            SinglyLinkedListNode node = this.firstNode;
+            while (true)
+            {
+                if (node.Value == existingValue)
+                {
+                    SinglyLinkedListNode newNode = new SinglyLinkedListNode(value);
+                    newNode.Next = node.Next;
+                    node.Next = newNode;
+                    break;
+                }
+                node = node.Next;
+                if (node == null)
+                {
+                    throw new System.ArgumentException();
+                }
+            }
         }
 
         public void AddFirst(string value)
@@ -98,7 +126,22 @@ namespace SinglyLinkedLists
 
         public int IndexOf(string value)
         {
-            throw new NotImplementedException();
+            int index = 0;
+            SinglyLinkedListNode node = firstNode;
+            while (true)
+            {
+                if (node.Value == value)
+                {
+                    break;
+                }
+                if (node.Value == null)
+                {
+                    break;
+                }
+                node = node.Next;
+                index++;
+            }
+            return index;
         }
 
         public bool IsSorted()
