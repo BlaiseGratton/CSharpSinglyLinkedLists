@@ -168,7 +168,7 @@ namespace SinglyLinkedLists
 
         public bool IsSorted()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         // HINT 1: You can extract this functionality (finding the last item in the list) from a method you've already written!
@@ -220,7 +220,30 @@ namespace SinglyLinkedLists
 
         public void Sort()
         {
-            throw new NotImplementedException();
+            SinglyLinkedListNode node = firstNode;
+            if (node == null)
+            {
+                return;
+            }
+            while (true)
+            {
+                if (node.Next == null)
+                {
+                    break;
+                }
+                if(node.Next < node.Next)
+                {
+                    SinglyLinkedListNode newNode1 = new SinglyLinkedListNode(node.Next.Value);
+                    SinglyLinkedListNode newNode2 = new SinglyLinkedListNode(node.Next.Next.Value);
+                    newNode2.Next = node.Next.Next.Next;
+                    node.Next = newNode1;
+                    newNode1.Next = newNode2;
+                }
+                if (node.Next > node)
+                {
+                    node = node.Next;
+                }
+            }
         }
 
         public string[] ToArray()

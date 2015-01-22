@@ -53,7 +53,9 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx
         public int CompareTo(Object obj)
         {
-            int first = 0;
+            SinglyLinkedListNode node = obj as SinglyLinkedListNode;
+            return node == null ? 1 : this.Value.CompareTo(node.Value);
+            /*int first = 0;
             foreach (char c in this.Value)
             { 
                 first += (int)c;
@@ -63,7 +65,7 @@ namespace SinglyLinkedLists
             {
                 second += (int)c;
             }
-            return first - second;
+            return first - second;*/
         }
 
         public bool IsLast()
