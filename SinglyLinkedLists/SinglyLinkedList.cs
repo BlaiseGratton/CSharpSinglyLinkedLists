@@ -243,7 +243,7 @@ namespace SinglyLinkedLists
             }
             while (true)
             {
-                if (node.Next == null || node.Next.Next == null)
+                if (node.Next == null)
                 {
                     break;
                 }
@@ -254,6 +254,10 @@ namespace SinglyLinkedLists
                     firstNode = firstNode.Next;
                     firstNode.Next = newNode;
                     node = firstNode;
+                }
+                if (node.Next.Next == null)
+                {
+                    break;
                 }
                 if (node.Next.Next < node.Next)
                 {
